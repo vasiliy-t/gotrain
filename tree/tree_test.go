@@ -48,6 +48,27 @@ func TestInsert(t *testing.T) {
 	n4 := Insert(n3, n2)
 
 	if n4.Right().Right() != n2 {
-		t.Errorf("Failed to assert")
+		t.Errorf("Tree composition failed expected %+v not equals actual %+v", n4.Right().Right(), n2)
+	}
+}
+
+func TestLookup(t *testing.T) {
+	node := &node{
+		Name: "a",
+		v: 1,
+		r: &node{
+			Name: "b",
+			v: 2,
+			r: &node{
+				Name: "c",
+				v: 3,
+			},
+		},
+	}
+
+	act := Lookup(node, 3)
+
+	if act != node.Right().Right() {
+		t.Errorf("Failed to assert: expected leaf %+v not equals actual %+v", node.Right().Right(), act)
 	}
 }
