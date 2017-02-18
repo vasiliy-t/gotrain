@@ -47,11 +47,20 @@ func TestInsert(t *testing.T) {
 		Name: "c",
 		v:    3,
 	}
-	n3 := Insert(n0, n1)
-	n4 := Insert(n3, n2)
+	n3 := &node{
+		Name: "d",
+		v:    0,
+	}
+	n4 := Insert(n0, n3)
+	n5 := Insert(n4, n1)
+	n6 := Insert(n5, n2)
 
-	if n4.Right().Right() != n2 {
-		t.Errorf("Tree composition failed expected %+v not equals actual %+v", n4.Right().Right(), n2)
+	if n6.Right().Right() != n2 {
+		t.Errorf("Tree composition failed expected %+v not equals actual %+v", n6.Right().Right(), n2)
+	}
+
+	if n6.Left() != n3 {
+		t.Errorf("Tree composition failed expected %+v not equals actual %+v", n6.Left(), n3)
 	}
 }
 
