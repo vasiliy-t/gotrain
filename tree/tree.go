@@ -52,3 +52,13 @@ func ApplyInOrder(tree NodeInterface, fn func(n NodeInterface)) {
 	fn(tree)
 	ApplyInOrder(tree.Right(), fn)
 }
+
+func ApplyPostOrder(node NodeInterface, fn func(n NodeInterface)) {
+	if node == nil {
+		return
+	}
+
+	ApplyPostOrder(node.Left(), fn)
+	ApplyPostOrder(node.Right(), fn)
+	fn(node)
+}

@@ -103,3 +103,32 @@ func TestApplyInOrder(t *testing.T) {
 		t.Errorf("Failed to assert: expected %s not equals actual %s", "0123", res)
 	}
 }
+
+func TestApplyPostOrder(t *testing.T) {
+	node := &node{
+		Name: "a",
+		v:    1,
+		l: &node{
+			Name: "d",
+			v:    0,
+		},
+		r: &node{
+			Name: "b",
+			v:    2,
+			r: &node{
+				Name: "c",
+				v:    3,
+			},
+		},
+	}
+
+	var res string
+
+	ApplyPostOrder(node, func(n NodeInterface) {
+		res = fmt.Sprintf("%s%d", res, n.Value())
+	})
+
+	if res != "0321" {
+		t.Errorf("Failed to assert: expected %s not equals %s", "0321", res)
+	}
+}
