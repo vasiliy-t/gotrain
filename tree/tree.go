@@ -43,3 +43,12 @@ func Lookup(tree NodeInterface, val int) NodeInterface {
 
 	return tree
 }
+
+func ApplyInOrder(tree NodeInterface, fn func(n NodeInterface)) {
+	if tree == nil {
+		return
+	}
+	ApplyInOrder(tree.Left(), fn)
+	fn(tree)
+	ApplyInOrder(tree.Right(), fn)
+}

@@ -1,6 +1,9 @@
 package tree
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 type node struct {
 	Name string
@@ -55,13 +58,13 @@ func TestInsert(t *testing.T) {
 func TestLookup(t *testing.T) {
 	node := &node{
 		Name: "a",
-		v: 1,
+		v:    1,
 		r: &node{
 			Name: "b",
-			v: 2,
+			v:    2,
 			r: &node{
 				Name: "c",
-				v: 3,
+				v:    3,
 			},
 		},
 	}
@@ -70,5 +73,33 @@ func TestLookup(t *testing.T) {
 
 	if act != node.Right().Right() {
 		t.Errorf("Failed to assert: expected leaf %+v not equals actual %+v", node.Right().Right(), act)
+	}
+}
+
+func TestApplyInOrder(t *testing.T) {
+	node := &node{
+		Name: "a",
+		v:    1,
+		l: &node{
+			Name: "d",
+			v:    0,
+		},
+		r: &node{
+			Name: "b",
+			v:    2,
+			r: &node{
+				Name: "c",
+				v:    3,
+			},
+		},
+	}
+	var res string
+
+	ApplyInOrder(node, func(n NodeInterface) {
+		res = fmt.Sprintf("%s%d", res, n.Value())
+	})
+
+	if res != "0123" {
+		t.Errorf("Failed to assert: expected %s not equals actual %s", "0123", res)
 	}
 }
