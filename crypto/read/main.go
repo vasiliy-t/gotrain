@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/ecdsa"
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
@@ -8,14 +9,13 @@ import (
 )
 
 func main() {
-	data, _ := ioutil.ReadFile("key.pem")
-	fmt.Println(data)
-	bpriv, rest := pem.Decode(data)
-	fmt.Printf("%+v\n\n", bpriv)
-
-	bpub, rest := pem.Decode(rest)
-	fmt.Printf("%+v\n\n", bpub)
-
+	privdata, _ := ioutil.ReadFile("priv.pem")
+	bpriv, _ := pem.Decode(privdata)
 	privkey, _ := x509.ParseECPrivateKey(bpriv.Bytes)
-	fmt.Printf("%+v", privkey.PublicKey)
+	fmt.Printf("%+v\n\n", privkey)
+
+	pubdata, _ := ioutil.ReadFile("pub.pem")
+	bpub, _ := pem.Decode(pubdata)
+	pubkey, _ := x509.ParsePKIXPublicKey(bpub.Bytes)
+	fmt.Printf("%+v", pubkey.(*ecdsa.PublicKey))
 }
