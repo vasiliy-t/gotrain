@@ -12,18 +12,22 @@ func main() {
 	c.Sub(1)
 	c.Sub(5)
 	fmt.Println(c.Add(10))
+	c.done <- true
+	<-c.done
 }
 
 type Calc struct {
-	in  chan func(acc int) int
-	out chan int
-	acc int
+	in   chan func(acc int) int
+	out  chan int
+	done chan bool
+	acc  int
 }
 
 func NewCalc() *Calc {
 	c := &Calc{
-		in:  make(chan func(acc int) int),
-		out: make(chan int),
+		in:   make(chan func(acc int) int),
+		out:  make(chan int),
+		done: make(chan bool),
 	}
 
 	go c.loop()
@@ -32,9 +36,16 @@ func NewCalc() *Calc {
 }
 
 func (c *Calc) loop() {
-	for v := range c.in {
-		c.acc = v(c.acc)
-		c.out <- c.acc
+	for {
+		select {
+		case op := <-c.in:
+			c.acc = op(c.acc)
+			c.out <- c.acc
+		case <-c.done:
+			fmt.Println("done")
+			c.done <- true
+			return
+		}
 	}
 }
 
