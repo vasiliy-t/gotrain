@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=qwerty
+      - MYSQL_DATABASE_NAME=dumb
+
+  db:
+    image: mysql:5.7.19
+    environment:
+      - MYSQL_ROOT_PASSWORD=qwerty
+      - MYSQL_DATABASE=dumb
+    volumes:
+      - ./sql/schemas:/docker-entrypoint-initdb.d
+
