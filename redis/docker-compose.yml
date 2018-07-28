@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:5.0-rc-alpine3.8
+
+  counter:
+    build:
+      dockerfile: Dockerfile
+      context: ./${PROJECT}
+    ports:
+      - 9000:9000
