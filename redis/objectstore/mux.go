@@ -2,6 +2,7 @@ package main
 
 import "net/http"
 
+// Option is a generic configuration option of HTTPMetdhoMux
 type Option func(mux *HTTPMethodMux)
 
 func WithHandler(method string, handler http.Handler) Option {
@@ -20,6 +21,8 @@ func NewHTTPMethodMux(opts ...Option) *HTTPMethodMux {
 	return mux
 }
 
+// HTTPMethodMux is a HTTP connection multiplexer,
+// routes requests to handlers according to request HTTP method
 type HTTPMethodMux struct {
 	methodMap map[string]http.Handler
 }

@@ -1,3 +1,4 @@
+// Dumb object storage around redis
 package main
 
 import (
