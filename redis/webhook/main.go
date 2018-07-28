@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/go-redis/redis"
+	"github.com/gorilla/mux"
 	log "github.com/sirupsen/logrus"
 	"github.com/vasiliy-t/gotrain/redis/serverenv"
 	"github.com/vasiliy-t/gotrain/redis/webhook/api"
@@ -24,12 +25,15 @@ func main() {
 	log.Infof("Redis: connected %s", pong)
 
 	eventHandler := api.NewEventHandler(client)
-	mux := http.NewServeMux()
-	mux.Handle("/api/event", eventHandler)
+	subscribeHandler := api.NewSubscribeHandler(client)
+
+	m := mux.NewRouter()
+	m.Handle("/api/event/{stream}", eventHandler)
+	m.Handle("/api/subscribe/{stream}", subscribeHandler)
 
 	httpServer := &http.Server{
 		Addr:         "0.0.0.0:9000",
-		Handler:      mux,
+		Handler:      m,
 		ReadTimeout:  time.Duration(1 * time.Second),
 		WriteTimeout: time.Duration(1 * time.Second),
 	}

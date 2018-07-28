@@ -17,6 +17,18 @@
   version = "v6.13.2"
 
 [[projects]]
+  name = "github.com/gorilla/context"
+  packages = ["."]
+  revision = "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
+  version = "v1.1.1"
+
+[[projects]]
+  name = "github.com/gorilla/mux"
+  packages = ["."]
+  revision = "e3702bed27f0d39777b0b37b664b6280e8ef8fbf"
+  version = "v1.6.2"
+
+[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "3e01752db0189b9157070a0e1668a620f9a85da2"
@@ -46,6 +58,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2b151eb361ce5e8ed7592f5e6723b74ec22733ec49b95e82da96bae3f6580642"
+  inputs-digest = "23a2c8df60bc123093c68edc75145cbb60b36e55dfd5cc1541a1590ba3794056"
   solver-name = "gps-cdcl"
   solver-version = 1
