@@ -64,13 +64,13 @@ func TestIntegration_Reverse_Push(t *testing.T) {
 
 func TestLen_ReturnsActualListItemsCount(t *testing.T) {
 	type testCase struct {
-		initializer func() *List
-		expected    int
+		arrange  func() *List
+		expected int
 	}
 
 	testCases := []testCase{
 		{
-			initializer: func() *List {
+			arrange: func() *List {
 				ll := NewLinkedList()
 				ll.PushFront(1)
 				ll.PushBack(2)
@@ -80,7 +80,7 @@ func TestLen_ReturnsActualListItemsCount(t *testing.T) {
 			expected: 3,
 		},
 		{
-			initializer: func() *List {
+			arrange: func() *List {
 				ll := NewLinkedList()
 				return ll
 			},
@@ -89,7 +89,7 @@ func TestLen_ReturnsActualListItemsCount(t *testing.T) {
 	}
 
 	for _, c := range testCases {
-		ll := c.initializer()
+		ll := c.arrange()
 		actual := ll.Len()
 		if actual != c.expected {
 			t.Fatalf("Item count mismatch, expected %d, actual %d", c.expected, actual)

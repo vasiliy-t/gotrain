@@ -171,19 +171,19 @@ func TestReverse(t *testing.T) {
 
 func TestString(t *testing.T) {
 	type testCase struct {
-		act      func() *List
+		arrange  func() *List
 		expected string
 	}
 
 	cases := []*testCase{
 		{
-			act: func() *List {
+			arrange: func() *List {
 				return NewList()
 			},
 			expected: "",
 		},
 		{
-			act: func() *List {
+			arrange: func() *List {
 				ll := NewList()
 
 				ll.PushBack(0)
@@ -195,7 +195,7 @@ func TestString(t *testing.T) {
 			expected: "0 1 2",
 		},
 		{
-			act: func() *List {
+			arrange: func() *List {
 				ll := NewList()
 
 				ll.PushBack(1)
@@ -213,7 +213,7 @@ func TestString(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		l := c.act()
+		l := c.arrange()
 		actual := fmt.Sprintf("%s", l)
 		if c.expected != actual {
 			t.Fatalf("String representation of List doesn't match, expected %s, actual %s", c.expected, actual)
