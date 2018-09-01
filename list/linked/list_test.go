@@ -1,9 +1,9 @@
 package linked
 
 import (
-	"testing"
 	"fmt"
 	"strings"
+	"testing"
 )
 
 func TestIteration_ListHasItems_IterateOneByOneInOrder(t *testing.T) {
@@ -12,7 +12,7 @@ func TestIteration_ListHasItems_IterateOneByOneInOrder(t *testing.T) {
 	ll.PushBack(0)
 	ll.PushBack(1)
 	ll.PushBack(2)
-	
+
 	expected := "0 1 2"
 	parts := []string{}
 
@@ -50,7 +50,7 @@ func TestIntegration_Reverse_Push(t *testing.T) {
 	ll.PushFront(0)
 	ll.PushBack(1)
 	ll.Reverse()
-	
+
 	ll.PushBack(2)
 	ll.PushFront(3)
 
@@ -64,13 +64,13 @@ func TestIntegration_Reverse_Push(t *testing.T) {
 
 func TestLen_ReturnsActualListItemsCount(t *testing.T) {
 	type testCase struct {
-		initializer func() *LinkedList
-		expected int
+		initializer func() *List
+		expected    int
 	}
 
 	testCases := []testCase{
 		{
-			initializer: func() *LinkedList {
+			initializer: func() *List {
 				ll := NewLinkedList()
 				ll.PushFront(1)
 				ll.PushBack(2)
@@ -80,7 +80,7 @@ func TestLen_ReturnsActualListItemsCount(t *testing.T) {
 			expected: 3,
 		},
 		{
-			initializer: func() *LinkedList {
+			initializer: func() *List {
 				ll := NewLinkedList()
 				return ll
 			},
@@ -128,7 +128,7 @@ func TestPushFront_AddElementsToLinkedListFront(t *testing.T) {
 }
 
 func TestToString_EmptyLinkedList_ReturnsEmptyString(t *testing.T) {
-	list := &LinkedList{}
+	list := NewLinkedList()
 
 	expected := ""
 	actual := fmt.Sprintf("%s", list)
